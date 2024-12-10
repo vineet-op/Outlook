@@ -9,7 +9,7 @@ const Emails = ({ from, email, subject, preview, timestamp, onClick }) => {
     return (
         <div className='min-w-6'>
             <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-2 m-4 border-theme-accent " onClick={onClick}>
-                <CardContent className="p-4 flex items-start  gap-10">
+                <CardContent className="p-4 flex items-start gap-5">
                     <Avatar className="h-10 w-10 bg-destructive">
                         <AvatarFallback className=" bg-theme-accent text-2xl text-theme-readBg">
                             {initial}

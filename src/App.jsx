@@ -55,11 +55,9 @@ export default function App() {
     }
   };
 
-
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString("en-US", {
-      weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -76,23 +74,22 @@ export default function App() {
   };
 
   return (
-    <main className="grid grid-cols-5 h-screen p-4">
+    <main className="grid grid-cols-1 md:grid-cols-5 h-screen p-4 gap-4">
       {/* Filter Buttons */}
-      <div className="col-span-5 p-4 bg-theme-background items-center flex gap-1">
-
+      <div className="col-span-1 md:col-span-5 p-4 bg-theme-background items-center flex gap-1 flex-wrap justify-center md:justify-start">
         <div className="font-medium pl-2">
           <p>Filters By:</p>
         </div>
 
         <button
-          className="px-4 py-2 pl-10  text-black rounded-full font-medium"
+          className="px-4 py-2 text-black rounded-full font-medium"
           onClick={() => setFilter("all")}
         >
           All
         </button>
 
         <button
-          className="px-3 py-2  text-black rounded-full font-medium"
+          className="px-3 py-2 text-black rounded-full font-medium"
           onClick={() => setFilter("unread")}
         >
           Unread
@@ -104,7 +101,7 @@ export default function App() {
           Read
         </button>
         <button
-          className="px-4 py-2  text-black rounded-full font-medium"
+          className="px-4 py-2 text-black rounded-full font-medium"
           onClick={() => setFilter("favorites")}
         >
           Favorites
@@ -112,7 +109,7 @@ export default function App() {
       </div>
 
       {/* Emails List */}
-      <div className="col-span-2 bg-theme-background overflow-y-auto custom-scrollbar">
+      <div className="col-span-1 md:col-span-2 bg-theme-background overflow-y-auto custom-scrollbar">
         {applyFilter().map((email) => (
           <Emails
             key={email.id}
@@ -122,17 +119,16 @@ export default function App() {
             preview={email.short_description}
             timestamp={formatTimestamp(email.date)}
             onClick={() => handleEmailClick(email)}
-            className={`cursor-pointer p-4 border-b ${email.isRead ? "bg-gray-300" : "bg-white"
-              }`}
+            className={`cursor-pointer p-4 border-b ${email.isRead ? "bg-gray-300" : "bg-white"}`}
           />
         ))}
       </div>
 
       {/* Email Details */}
-      <div className="col-span-3 mt-4  bg-white px-10 w-full  rounded-full">
+      <div className="col-span-1 md:col-span-3 bg-white px-4 md:px-10 py-6 rounded-md">
         {selectedEmail ? (
-          <div className="p-10">
-            <div className="flex flex-row items-center justify-start gap-3">
+          <div className="p-6">
+            <div className="flex items-center gap-4">
               <Avatar className="h-10 w-10 bg-destructive">
                 <AvatarFallback className="bg-theme-accent text-2xl text-theme-readBg">
                   {selectedEmail.from.name.charAt(0).toUpperCase()}
@@ -140,13 +136,13 @@ export default function App() {
               </Avatar>
               <h2 className="text-2xl font-bold">{selectedEmail.subject}</h2>
               <button
-                className={`absolute w-40 h-10 text-center text-white p-1 font-semibold rounded-3xl right-20 ${selectedEmail.isFavorite ? "bg-red-100" : "bg-theme-accent"}`}
+                className={`absolute lg:w-40 lg:h-10 w-25 text-sm h-12 text-center text-white p-1 font-semibold rounded-3xl right-20 ${selectedEmail.isFavorite ? "bg-red-100" : "bg-theme-accent"}`}
                 onClick={() => toggleFavorite(selectedEmail.id)}
               >
                 {selectedEmail.isFavorite ? "Unmark Favorite" : "Mark as Favorite"}
               </button>
             </div>
-            <p className="pt-4 pl-4 text-black">
+            <p className="pt-4 text-theme-textcolor">
               {selectedEmail.date ? formatTimestamp(selectedEmail.date) : "NA"}
             </p>
             <div className="mt-10 text-theme-textcolor whitespace-pre-wrap">
